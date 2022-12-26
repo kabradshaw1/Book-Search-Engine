@@ -57,9 +57,35 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    saveBook: async ()
-  },
-  
+    // This is very similar to the addReaction, so I took that code
+    // from deep-thoughts and changed it to book
+    saveBook: async (parent, args, context) => {
+      if (context.user) {
+        const book = await Book.create({ ...args, username: context.user.username });
+
+        await User.findByIdAndUpdate(
+          { _id: context.user._id },
+          { $push: { books: book._id } },
+          { new: true }
+        );
+
+        return book;
+      }
+    },
+    // kind of at a loss here as I don't really have a similar example.  It's
+    // clear that I could stand to learn more about what exactly the difference
+    // is in how this works vs controllers.  Kind of a rough guess for how this should
+    // be, for now.
+    removeBook: async (parent, args, context) => {
+      const updatedUser = await User.FindOneAndUpdate(
+        { _id: context.user._id },
+        { $pull: { savedBooks: { bookId: params.bookId } }},
+        { new: true }
+      );
+
+      return updatedUser
+    },
+  }
 };
 
 module.exports = resolvers;
