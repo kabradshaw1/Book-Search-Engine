@@ -15,7 +15,6 @@ const resolvers = {
         const userData = await User.findOne({ _id: context.user._id })
           .select('-__v -password')
           .populate('book')
-  
 
         return userData;
       }
@@ -46,7 +45,8 @@ const resolvers = {
       return { token, user };
     },
     // This is very similar to the addReaction, so I took that code
-    // from deep-thoughts and changed it to book
+    // from deep-thoughts and changed it to book.  Currected now.  I tried 
+    // to use the Books.create() method.  I think the rest was good.
     saveBook: async (parent, args, context) => {
       if (context.user) {
         const updatedUser = await User.findByIdAndUpdate(
@@ -63,7 +63,7 @@ const resolvers = {
     // kind of at a loss here as I don't really have a similar example.  It's
     // clear that I could stand to learn more about what exactly the difference
     // is in how this works vs controllers.  Kind of a rough guess for how this should
-    // be, for now.
+    // be, for now.  Currected now.  I missed the if statement the first time.
     removeBook: async (parent, args, context) => {
       if (context.user) {
         const updatedUser = await User.findOneAndUpdate(
