@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import {
-  Jumbotron,
   Container,
   Col,
   Form,
   Button,
   Card,
-  CardColumns,
+  CardGroup,
 } from "react-bootstrap";
 import { useMutation } from "@apollo/client";
 
@@ -90,7 +89,7 @@ const SearchBooks = () => {
 
   return (
     <>
-      <Jumbotron fluid className="text-light bg-dark">
+      <div fluid className="text-light bg-dark jumbotron">
         <Container>
           <h1>Search for Books!</h1>
           <Form onSubmit={handleFormSubmit}>
@@ -113,7 +112,7 @@ const SearchBooks = () => {
             </Form.Row>
           </Form>
         </Container>
-      </Jumbotron>
+      </div>
 
       <Container>
         <h2>
@@ -121,7 +120,7 @@ const SearchBooks = () => {
             ? `Viewing ${searchedBooks.length} results:`
             : "Search for a book to begin"}
         </h2>
-        <CardColumns>
+        <CardGroup>
           {searchedBooks.map((book) => {
             return (
               <Card key={book.bookId} border="dark">
@@ -161,7 +160,7 @@ const SearchBooks = () => {
               </Card>
             );
           })}
-        </CardColumns>
+        </CardGroup>
       </Container>
     </>
   );
