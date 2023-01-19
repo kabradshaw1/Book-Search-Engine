@@ -1,11 +1,12 @@
 import React from "react";
 import {
+  Jumbotron,
   Container,
-  CardGroup,
+  CardColumns,
   Card,
   Button,
 } from "react-bootstrap";
-import { useQuery, useMutation } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/react-hooks";
 
 import Auth from "../utils/auth";
 import { removeBookId } from "../utils/localStorage";
@@ -45,11 +46,11 @@ const SavedBooks = () => {
 
   return (
     <>
-      <div fluid className="text-light bg-dark jumbotron">
+      <Jumbotron fluid className="text-light bg-dark">
         <Container>
           <h1>Viewing saved books!</h1>
         </Container>
-      </div>
+      </Jumbotron>
       <Container>
         <h2>
           {userData.savedBooks.length
@@ -57,7 +58,7 @@ const SavedBooks = () => {
             }:`
             : "You have no saved books!"}
         </h2>
-        <CardGroup>
+        <CardColumns>
           {userData.savedBooks.map((book) => {
             return (
               <Card key={book.bookId} border="dark">
@@ -88,7 +89,7 @@ const SavedBooks = () => {
               </Card>
             );
           })}
-        </CardGroup>
+        </CardColumns>
       </Container>
     </>
   );
